@@ -84,7 +84,7 @@
         <div class="container text-center">
             <div class="row justify-content-center align-items-top g-2">
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Phone 1</h3>
                         <img width="100%" src="./phone 1.png">
                         <div class="card-body">
@@ -101,7 +101,7 @@
                     </div>
                 </div>
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Phone 2</h3>
                         <img width="100%" src="./phone 2.png">
                         <div class="card-body">
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Phone 3</h3>
                         <img width="100%" src="./phone 3.png">
                         <div class="card-body">
@@ -144,7 +144,7 @@
         <div class="container text-center">
             <div class="row justify-content-center align-items-top g-2">
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Tablet 1</h3>
                         <img width="100%" src="./tablet 1.png">
                         <div class="card-body">
@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Tablet 2</h3>
                         <img width="100%" src="./tablet 2.png">
                         <div class="card-body">
@@ -178,7 +178,7 @@
                     </div>
                 </div>
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Tablet 3</h3>
                         <img width="100%" src="./tablet 3.png">
                         <div class="card-body">
@@ -204,7 +204,7 @@
         <div class="container text-center">
             <div class="row justify-content-center align-items-top g-2">
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Laptop 1</h3>
                         <img width="100%" src="./laptop 1.png">
                         <div class="card-body">
@@ -221,7 +221,7 @@
                     </div>
                 </div>
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Laptop 2</h3>
                         <img width="100%" src="./laptop 2.png">
                         <div class="card-body">
@@ -238,7 +238,7 @@
                     </div>
                 </div>
                 <div class="col m-3">
-                    <div class="card mb-3">
+                    <div class="card mb-3 add-to-cart">
                         <h3 class="card-header">Laptop 3</h3>
                         <img width="100%" src="./laptop 3.png">
                         <div class="card-body">
@@ -256,6 +256,80 @@
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col">
+                    <h2 class="text-white">Shopping Cart</h2>
+                    <div id="cart-section" class="card mb-4">
+                    </div>
+                    <div class="card mb-5">
+                        <div class="card-body p-4">
+                            <div class="float-end">
+                                <p class="mb-0 me-5 d-flex align-items-center">
+                                    <span class="small text-muted me-2">Order total:</span> <span class="lead fw-normal"
+                                        id="cart-total">$0</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let cart = [];
+            function addToCart(productName, productPrice, productImage) {
+                cart.push({
+                    name: productName,
+                    price: productPrice,
+                    image: productImage,
+                });
+                updateCartUI();
+            }
+            function updateCartUI() {
+                const cartSection = document.querySelector("#cart-section");
+                cartSection.innerHTML = "";
+                let total = 0;
+                for (const item of cart) {
+                    total += item.price;
+                    //Adds items to cart section
+                    cartSection.innerHTML += `
+                                <div class="row align-items-center">
+                                <div class="col-md-2 d-flex justify-content-center">
+                                    <div>
+                                    <img src="${item.image}" alt="Product Image" style="width: 100px; height: 100px;">
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-flex justify-content-center">
+                                    <div>
+                                    <p class="small text-muted p-2">Name</p>
+                                    <p class="lead fw-normal">${item.name}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 d-flex justify-content-center">
+                                    <div>
+                                    <p class="small text-muted p-2">Price</p>
+                                    <p class="lead fw-normal">$${item.price}</p>
+                                    </div>
+                                </div>
+                                </div>
+                            `;
+                }
+                const totalSection = document.querySelector("#cart-total");
+                totalSection.textContent = `$${total}`;
+            }
+            const addToCartCards = document.querySelectorAll(".add-to-cart");
+            addToCartCards.forEach((card) => {
+                const button = card.querySelector(".card-body button");
+                button.addEventListener("click", () => {
+                    const productName = card.querySelector(".card-header").textContent;
+                    const productPrice = parseFloat(card.querySelector(".card-footer").textContent.replace("$", ""));
+                    const productImage = card.querySelector("img").src;
+                    addToCart(productName, productPrice, productImage);
+                });
+            });
+        </script>
 
         <div class="container">
             <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -282,5 +356,3 @@
             crossorigin="anonymous"></script>
     </body>
 </html>
-
-<!--Yo yo what is good everybody-->

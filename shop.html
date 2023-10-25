@@ -287,33 +287,42 @@
                 });
                 updateCartUI();
             }
+            function removeFromCart(index) {
+                cart.splice(index, 1);
+                updateCartUI();
+            }
             function updateCartUI() {
                 const cartSection = document.querySelector("#cart-section");
                 cartSection.innerHTML = "";
                 let total = 0;
+                let index = 0;
                 for (const item of cart) {
-                    total += item.price;
                     cartSection.innerHTML += `
                         <div class="row align-items-center">
                             <div class="col-md-2 d-flex justify-content-center">
                                 <div>
-                                <img src="${item.image}" alt="Product Image" style="width: 100px; height: 100px;">
+                                    <img src="${item.image}" alt="Product Image" style="width: 100px; height: 100px;">
                                 </div>
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
                                 <div>
-                                <p class="small text-muted p-2">Name</p>
-                                <p class="lead fw-normal">${item.name}</p>
+                                    <p class="small text-muted p-2">Name</p>
+                                    <p class="lead fw-normal">${item.name}</p>
                                 </div>
                             </div>
                             <div class="col-md-2 d-flex justify-content-center">
                                 <div>
-                                <p class="small text-muted p-2">Price</p>
-                                <p class="lead fw-normal">$${item.price}</p>
+                                    <p class="small text-muted p-2">Price</p>
+                                    <p class="lead fw-normal">$${item.price}</p>
                                 </div>
                             </div>
+                            <button class="col-md-2 d-flex justify-content-center" type="button" onclick="removeFromCart(${index})">
+                                Remove from Cart
+                            </button>
                         </div>
                     `;
+                    total += item.price;
+                    index += 1;
                 }
                 const totalSection = document.querySelector("#cart-total");
                 totalSection.textContent = `$${total}`;

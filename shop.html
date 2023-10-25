@@ -293,28 +293,27 @@
                 let total = 0;
                 for (const item of cart) {
                     total += item.price;
-                    //Adds items to cart section
                     cartSection.innerHTML += `
-                                <div class="row align-items-center">
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <div>
-                                    <img src="${item.image}" alt="Product Image" style="width: 100px; height: 100px;">
-                                    </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                <img src="${item.image}" alt="Product Image" style="width: 100px; height: 100px;">
                                 </div>
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <div>
-                                    <p class="small text-muted p-2">Name</p>
-                                    <p class="lead fw-normal">${item.name}</p>
-                                    </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                <p class="small text-muted p-2">Name</p>
+                                <p class="lead fw-normal">${item.name}</p>
                                 </div>
-                                <div class="col-md-2 d-flex justify-content-center">
-                                    <div>
-                                    <p class="small text-muted p-2">Price</p>
-                                    <p class="lead fw-normal">$${item.price}</p>
-                                    </div>
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center">
+                                <div>
+                                <p class="small text-muted p-2">Price</p>
+                                <p class="lead fw-normal">$${item.price}</p>
                                 </div>
-                                </div>
-                            `;
+                            </div>
+                        </div>
+                    `;
                 }
                 const totalSection = document.querySelector("#cart-total");
                 totalSection.textContent = `$${total}`;
